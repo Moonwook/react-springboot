@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import useCustomMove from "../../hooks/useCustomMove";
-import { getList } from "../../api/productsApi";
-import FetchingModal from "../common/FetchingModal";
-import { API_SERVER_HOST } from "../../api/todoApi";
-import PageComponent from "../common/PageComponent";
+import { useEffect, useState } from 'react';
+import useCustomMove from '../../hooks/useCustomMove';
+import { getList } from '../../api/productsApi';
+import FetchingModal from '../common/FetchingModal';
+import { API_SERVER_HOST } from '../../api/todoApi';
+import PageComponent from '../common/PageComponent';
+import useCustomLogin from '../../hooks/useCustomLogin';
 
 const host = API_SERVER_HOST;
 
@@ -21,6 +22,8 @@ const initState = {
 };
 
 const ListComponent = () => {
+  const { exceptionHandle } = useCustomLogin();
+
   const { page, size, refresh, moveToList, moveToRead } = useCustomMove(); //refresh추가
 
   const [serverData, setServerData] = useState(initState);
@@ -31,11 +34,13 @@ const ListComponent = () => {
   useEffect(() => {
     setFetching(true);
 
-    getList({ page, size }).then((data) => {
-      console.log(data);
-      setServerData(data);
-      setFetching(false);
-    });
+    getList({ page, size })
+      .then((data) => {
+        console.log(data);
+        setServerData(data);
+        setFetching(false);
+      })
+      .catch((err) => exceptionHandle(err));
   }, [page, size, refresh]); //refresh추가
 
   return (

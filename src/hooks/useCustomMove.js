@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   createSearchParams,
   useNavigate,
   useSearchParams,
-} from "react-router-dom";
+} from 'react-router-dom';
 
 const getNum = (param, defaultValue) => {
   // console.log("useCustomMove.js-- getNum()", "param = 숫자?: ", isNaN(param));
@@ -21,15 +21,15 @@ const useCustomMove = () => {
 
   const [queryParams] = useSearchParams();
 
-  const page = getNum(queryParams.get("page"), 1);
-  const size = getNum(queryParams.get("size"), 10);
+  const page = getNum(queryParams.get('page'), 1);
+  const size = getNum(queryParams.get('size'), 10);
 
   const queryDefault = createSearchParams({ page, size }).toString();
 
   const moveToList = (pageParam) => {
     // console.log("moveToList-pageParam:", pageParam);
 
-    let queryStr = "";
+    let queryStr = '';
 
     if (pageParam) {
       const pageNum = getNum(pageParam.page, 1);
