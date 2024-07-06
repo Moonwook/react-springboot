@@ -1,62 +1,56 @@
-import { Suspense, lazy } from "react";
-import { createBrowserRouter } from "react-router-dom";
-import todoRouter from "./todoRouter";
-import productsRouter from "./productsRouter";
-import memberRouter from "./memberRouter";
+import { Suspense, lazy } from 'react';
+import todoRouter from './todoRouter';
+import productsRouter from './productsRouter';
+import memberRouter from './memberRouter';
 
-const Loarding = <div>Loarding</div>;
-const Main = lazy(() => import("../pages/MainPage"));
-const About = lazy(() => import("../pages/AboutPage"));
-const TodoIndex = lazy(() => import("../pages/todo/IndexPage"));
-// const TodoList = lazy(() => import("../pages/todo/ListPage"));
-const ProducsIndex = lazy(() => import("../pages/products/IndexPage"));
+const { createBrowserRouter } = require('react-router-dom');
+
+const Loading = <div>Loading....</div>;
+const Main = lazy(() => import('../pages/MainPage'));
+
+const About = lazy(() => import('../pages/AboutPage'));
+
+const TodoIndex = lazy(() => import('../pages/todo/IndexPage'));
+
+const ProductsIndex = lazy(() => import('../pages/products/IndexPage'));
 
 const root = createBrowserRouter([
   {
-    path: "",
+    path: '',
     element: (
-      <Suspense fallback={Loarding}>
+      <Suspense fallback={Loading}>
         <Main />
       </Suspense>
     ),
   },
   {
-    path: "about",
+    path: 'about',
     element: (
-      <Suspense fallback={Loarding}>
+      <Suspense fallback={Loading}>
         <About />
       </Suspense>
     ),
   },
   {
-    path: "todo",
+    path: 'todo',
     element: (
-      <Suspense fallback={Loarding}>
+      <Suspense fallback={Loading}>
         <TodoIndex />
       </Suspense>
     ),
     children: todoRouter(),
-    // children: [
-    //   {
-    //     path: "list",
-    //     element:
-    //       <Suspense fallback={Loarding}>
-    //         <TodoList />
-    //       </Suspense>
-    //   },
-    // ],
   },
   {
-    path: "products",
+    path: 'products',
     element: (
-      <Suspense fallback={Loarding}>
-        <ProducsIndex />
+      <Suspense fallback={Loading}>
+        <ProductsIndex />
       </Suspense>
     ),
     children: productsRouter(),
   },
   {
-    path: "member",
+    path: 'member',
     children: memberRouter(),
   },
 ]);

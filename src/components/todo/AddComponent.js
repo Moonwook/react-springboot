@@ -1,36 +1,34 @@
-import { useState } from "react";
-import { postAdd } from "../../api/todoApi";
-import ResultModal from "../common/ResultModal";
-import useCustomMove from "../../hooks/useCustomMove";
+import { useState } from 'react';
+import { postAdd } from '../../api/todoApi';
+import ResultModal from '../common/ResultModal';
+import useCustomMove from '../../hooks/useCustomMove';
 
 const initState = {
-  title: "",
-  writer: "",
-  dueDate: "",
+  title: '',
+  writer: '',
+  dueDate: '',
 };
 
 const AddComponent = () => {
   const [todo, setTodo] = useState({ ...initState });
 
-  //결과 데이터가 있는 경우에는 ResultModal을 보여줌
   const [result, setResult] = useState(null); //결과 상태
 
-  const { moveToList } = useCustomMove(); // useCustomMove 활용
+  const { moveToList } = useCustomMove(); //useCustomMove 활용
 
-  const handleChaneTodo = (e) => {
+  const handleChangeTodo = (e) => {
     todo[e.target.name] = e.target.value;
 
     setTodo({ ...todo });
   };
 
   const handleClickAdd = () => {
-    // console.log(todo);
-
+    //console.log(todo)
     postAdd(todo)
       .then((result) => {
         console.log(result);
-        setResult(result.TNO); //결과 데이터 반영
-        //초기화
+
+        setResult(result.TNO); //결과 데이터 변경
         setTodo({ ...initState });
       })
       .catch((e) => {
@@ -40,15 +38,16 @@ const AddComponent = () => {
 
   const closeModal = () => {
     setResult(null);
-    moveToList(); // moveToList() 호출
+    moveToList(); //moveToList( )호출
   };
 
   return (
     <div className="border-2 border-sky-200 mt-10 m-2 p-4">
-      {/* 모달처리 */}
+      {/* 모달 처리 */}
+
       {result ? (
         <ResultModal
-          title={"Add Result"}
+          title={'Add Result'}
           content={`New ${result} Added`}
           callbackFn={closeModal}
         />
@@ -62,9 +61,9 @@ const AddComponent = () => {
           <input
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-500 shadow-md"
             name="title"
-            type={"text"}
+            type={'text'}
             value={todo.title}
-            onChange={handleChaneTodo}
+            onChange={handleChangeTodo}
           ></input>
         </div>
       </div>
@@ -74,9 +73,9 @@ const AddComponent = () => {
           <input
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-500 shadow-md"
             name="writer"
-            type={"text"}
+            type={'text'}
             value={todo.writer}
-            onChange={handleChaneTodo}
+            onChange={handleChangeTodo}
           ></input>
         </div>
       </div>
@@ -86,17 +85,17 @@ const AddComponent = () => {
           <input
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-500 shadow-md"
             name="dueDate"
-            type={"date"}
+            type={'date'}
             value={todo.dueDate}
-            onChange={handleChaneTodo}
+            onChange={handleChangeTodo}
           ></input>
         </div>
       </div>
       <div className="flex justify-end">
-        <div className="relative mb4 flext p-4 flex-wrap items-stretch">
+        <div className="relative mb-4 flex p-4 flex-wrap items-stretch">
           <button
             type="button"
-            className="rounded p-4 w-36 bg-blue-500 text-xl text-white"
+            className="rounded p-4 w-36 bg-blue-500 text-xl  text-white "
             onClick={handleClickAdd}
           >
             ADD

@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { deleteOne, getOne, putOne } from "../../api/todoApi";
+import { useCallback, useEffect, useState } from 'react';
+import { deleteOne, getOne, putOne } from '../../api/todoApi';
 
-import ResultModal from "../common/ResultModal";
-import useCustomMove from "../../hooks/useCustomMove";
+import ResultModal from '../common/ResultModal';
+import useCustomMove from '../../hooks/useCustomMove';
 
 const initState = {
   tno: 0,
-  title: "",
-  writer: "",
-  dueDate: "",
+  title: '',
+  writer: '',
+  dueDate: '',
   complete: false,
 };
 
@@ -27,8 +27,8 @@ const ModifyComponent = ({ tno, moveList, moveRead }) => {
     //console.log(todo)
 
     putOne(todo).then((data) => {
-      console.log("modify result: " + data);
-      setResult("Modified");
+      console.log('modify result: ' + data);
+      setResult('Modified');
     });
   };
 
@@ -36,14 +36,14 @@ const ModifyComponent = ({ tno, moveList, moveRead }) => {
     //버튼 클릭시
 
     deleteOne(tno).then((data) => {
-      console.log("delete result: " + data);
-      setResult("Deleted");
+      console.log('delete result: ' + data);
+      setResult('Deleted');
     });
   };
 
   //모달 창이 close될때
   const closeModal = () => {
-    if (result === "Deleted") {
+    if (result === 'Deleted') {
       moveToList();
     } else {
       moveToRead(tno);
@@ -63,7 +63,7 @@ const ModifyComponent = ({ tno, moveList, moveRead }) => {
   const handleChangeTodoComplete = (e) => {
     const value = e.target.value;
 
-    todo.complete = value === "Y";
+    todo.complete = value === 'Y';
 
     setTodo({ ...todo });
   };
@@ -72,7 +72,7 @@ const ModifyComponent = ({ tno, moveList, moveRead }) => {
     <div className="border-2 border-sky-200 mt-10 m-2 p-4">
       {result ? (
         <ResultModal
-          title={"처리결과"}
+          title={'처리결과'}
           content={result}
           callbackFn={closeModal}
         ></ResultModal>
@@ -102,7 +102,7 @@ const ModifyComponent = ({ tno, moveList, moveRead }) => {
           <input
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
             name="title"
-            type={"text"}
+            type={'text'}
             value={todo.title}
             onChange={handleChangeTodo}
           ></input>
@@ -114,7 +114,7 @@ const ModifyComponent = ({ tno, moveList, moveRead }) => {
           <input
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
             name="dueDate"
-            type={"date"}
+            type={'date'}
             value={todo.dueDate}
             onChange={handleChangeTodo}
           ></input>
@@ -127,7 +127,7 @@ const ModifyComponent = ({ tno, moveList, moveRead }) => {
             name="status"
             className="border-solid border-2 rounded m-1 p-2"
             onChange={handleChangeTodoComplete}
-            value={todo.complete ? "Y" : "N"}
+            value={todo.complete ? 'Y' : 'N'}
           >
             <option value="Y">Completed</option>
             <option value="N">Not Yet</option>

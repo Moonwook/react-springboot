@@ -6,7 +6,7 @@ const PageComponent = ({ serverData, movePage }) => {
           className="m-2 p-2 w-16 text-center  font-bold text-blue-400 "
           onClick={() => movePage({ page: serverData.prevPage })}
         >
-          Prev
+          Prev{' '}
         </div>
       ) : (
         <></>
@@ -16,7 +16,7 @@ const PageComponent = ({ serverData, movePage }) => {
         <div
           key={pageNum}
           className={`m-2 p-2 w-12  text-center rounded shadow-md text-white ${
-            serverData.current === pageNum ? "bg-gray-500" : "bg-blue-400"
+            serverData.current === pageNum ? 'bg-gray-500' : 'bg-blue-400'
           }`}
           onClick={() => movePage({ page: pageNum })}
         >

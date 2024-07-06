@@ -1,5 +1,4 @@
-import React from "react";
-import AddComponent from "../../components/todo/AddComponent";
+import AddComponent from '../../components/todo/AddComponent';
 
 const AddPage = () => {
   return (

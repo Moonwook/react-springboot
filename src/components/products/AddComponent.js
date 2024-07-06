@@ -1,12 +1,13 @@
-import { useRef, useState } from "react";
-import { postAdd } from "../../api/productsApi";
-import FetchingModal from "../common/FetchingModal";
-import ResultModal from "../common/ResultModal";
-import useCustomMove from "../../hooks/useCustomMove";
+import { useRef, useState } from 'react';
+
+import { postAdd } from '../../api/productsApi';
+import FetchingModal from '../common/FetchingModal';
+import ResultModal from '../common/ResultModal';
+import useCustomMove from '../../hooks/useCustomMove';
 
 const initState = {
-  pname: "",
-  pdesc: "",
+  pname: '',
+  pdesc: '',
   price: 0,
   files: [],
 };
@@ -15,29 +16,29 @@ const AddComponent = () => {
   const [product, setProduct] = useState({ ...initState });
   const uploadRef = useRef();
 
-  const handleChageProduct = (e) => {
+  const [fetching, setFetching] = useState(false);
+  const [result, setResult] = useState(null);
+
+  const { moveToList } = useCustomMove(); //이동을 위한 함수
+
+  const handleChangeProduct = (e) => {
     product[e.target.name] = e.target.value;
     setProduct({ ...product });
   };
 
-  // for FetchingModal
-  const [fetching, setFetching] = useState(false);
-
-  // for ResultModal
-  const [result, setResult] = useState(null);
-
   const handleClickAdd = (e) => {
     const files = uploadRef.current.files;
+
     const formData = new FormData();
 
     for (let i = 0; i < files.length; i++) {
-      formData.append("files", files[i]);
+      formData.append('files', files[i]);
     }
 
-    // other data
-    formData.append("pname", product.pname);
-    formData.append("pdesc", product.pdesc);
-    formData.append("price", product.price);
+    //other data
+    formData.append('pname', product.pname);
+    formData.append('pdesc', product.pdesc);
+    formData.append('price', product.price);
 
     console.log(formData);
 
@@ -46,19 +47,14 @@ const AddComponent = () => {
     postAdd(formData).then((data) => {
       setFetching(false);
       setResult(data.result);
-
-      console.log("fetching: ", fetching);
-      console.log("result: ", result);
     });
   };
 
-  const { moveToList } = useCustomMove(); // 이동을 위한 함수
-
-  //ResultModal종료
   const closeModal = () => {
+    //ResultModal 종료
+
     setResult(null);
-    moveToList({ page: 1 });
-    // useCustomMove.moveToList({ page: 1 });
+    moveToList({ page: 1 }); //모달 창이 닫히면 이동
   };
 
   return (
@@ -67,7 +63,7 @@ const AddComponent = () => {
 
       {result ? (
         <ResultModal
-          title={"Product Add Result"}
+          title={'Product Add Result'}
           content={`${result}번 등록 완료`}
           callbackFn={closeModal}
         />
@@ -81,9 +77,9 @@ const AddComponent = () => {
           <input
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
             name="pname"
-            type={"text"}
+            type={'text'}
             value={product.pname}
-            onChange={handleChageProduct}
+            onChange={handleChangeProduct}
           ></input>
         </div>
       </div>
@@ -94,9 +90,11 @@ const AddComponent = () => {
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md resize-y"
             name="pdesc"
             rows="4"
+            onChange={handleChangeProduct}
             value={product.pdesc}
-            onChange={handleChageProduct}
-          ></textarea>
+          >
+            {product.pdesc}
+          </textarea>
         </div>
       </div>
       <div className="flex justify-center">
@@ -105,19 +103,19 @@ const AddComponent = () => {
           <input
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
             name="price"
-            type={"number"}
+            type={'number'}
             value={product.price}
-            onChange={handleChageProduct}
+            onChange={handleChangeProduct}
           ></input>
         </div>
       </div>
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-          <div className="w-1/5 p-6 text-right font-bold">Product Name</div>
+          <div className="w-1/5 p-6 text-right font-bold">Files</div>
           <input
             ref={uploadRef}
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
-            type={"file"}
+            type={'file'}
             multiple={true}
           ></input>
         </div>

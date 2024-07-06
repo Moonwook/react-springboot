@@ -7,7 +7,7 @@ const LogoutPage = () => {
       <BasicMenu />
 
       <div className="w-full flex flex-wrap  h-full justify-center  items-center border-2">
-        <LogoutComponent />
+        <LogoutComponent></LogoutComponent>
       </div>
     </div>
   );

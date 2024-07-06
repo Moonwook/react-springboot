@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { modifyMember } from '../../api/memberApi';
-import ResultModal from '../common/ResultModal';
 import useCustomLogin from '../../hooks/useCustomLogin';
+import ResultModal from '../common/ResultModal';
 
 const initState = {
   email: '',
@@ -24,16 +25,17 @@ const ModifyComponent = () => {
 
   const handleChange = (e) => {
     member[e.target.name] = e.target.value;
+
     setMember({ ...member });
   };
 
   const handleClickModify = () => {
     modifyMember(member).then((result) => {
-      setResult('Modified');
+      setResult('Moodified');
     });
   };
 
-  const closeModal = () => {
+  const colseModal = () => {
     setResult(null);
     moveToLogin();
   };
@@ -44,11 +46,12 @@ const ModifyComponent = () => {
         <ResultModal
           title={'회원정보'}
           content={'정보수정완료'}
-          callbackFn={closeModal}
+          callbackFn={colseModal}
         ></ResultModal>
       ) : (
         <></>
       )}
+
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">Email</div>

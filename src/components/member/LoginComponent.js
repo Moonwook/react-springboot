@@ -1,8 +1,4 @@
 import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
-// // import { login } from '../../slices/loginSlice';
-// import { loginPostAsync } from '../../slices/loginSlice';
-// import { useNavigate } from 'react-router-dom';
 import useCustomLogin from '../../hooks/useCustomLogin';
 import KakaoLoginComponent from './KakaoLoginComponent';
 
@@ -21,26 +17,6 @@ const LoginComponent = () => {
 
     setLoginParam({ ...loginParam });
   };
-
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-
-  // const handleClickLogin = (e) => {
-  //   // dispatch(login(loginParam)) // loginSlice의 login()이 동작 - 동기화된 호출
-  //   dispatch(loginPostAsync(loginParam)) //loginSlice의 비동기 호출
-  //     .unwrap()
-  //     .then((data) => {
-  //       console.log('after unwrap....');
-  //       console.log(data);
-
-  //       if (data.error) {
-  //         alert('이메일과 패스워드를 다시 확인하세요');
-  //       } else {
-  //         alert('로그인 성공');
-  //         navigate({ pathname: `/` }, { replace: true }); // 뒤로가기 했을때 로그인 화면을 볼수 없게
-  //       }
-  //     });
-  // };
 
   const handleClickLogin = (e) => {
     doLogin(loginParam) // loginSlice의 비동기 호출

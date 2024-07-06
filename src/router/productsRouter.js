@@ -1,36 +1,39 @@
-import { Suspense, lazy } from "react";
-import { Navigate } from "react-router-dom";
+import { Suspense, lazy } from 'react';
+import { Navigate } from 'react-router-dom';
 
-const productRouter = () => {
-  const Loading = <div>Loading....</div>;
-  const ProductList = lazy(() => import("../pages/products/ListPage"));
-  const ProductAdd = lazy(() => import("../pages/products/AddPage"));
-  const ProductRead = lazy(() => import("../pages/products/ReadPage"));
-  const ProductModify = lazy(() => import("../pages/products/ModifyPage"));
+const Loading = <div>Loading....</div>;
+const ProductsList = lazy(() => import('../pages/products/ListPage'));
 
+const ProductsAdd = lazy(() => import('../pages/products/AddPage'));
+
+const ProductRead = lazy(() => import('../pages/products/ReadPage'));
+
+const ProductModify = lazy(() => import('../pages/products/ModifyPage'));
+
+const productsRouter = () => {
   return [
     {
-      path: "list",
+      path: 'list',
       element: (
         <Suspense fallback={Loading}>
-          <ProductList />
+          <ProductsList />
         </Suspense>
       ),
     },
     {
-      path: "",
-      element: <Navigate replace to="/products/list"></Navigate>,
+      path: '',
+      element: <Navigate replace to="/products/list" />,
     },
     {
-      path: "add",
+      path: 'add',
       element: (
         <Suspense fallback={Loading}>
-          <ProductAdd />
+          <ProductsAdd />
         </Suspense>
       ),
     },
     {
-      path: "read/:pno",
+      path: 'read/:pno',
       element: (
         <Suspense fallback={Loading}>
           <ProductRead />
@@ -38,7 +41,7 @@ const productRouter = () => {
       ),
     },
     {
-      path: "modify/:pno",
+      path: 'modify/:pno',
       element: (
         <Suspense fallback={Loading}>
           <ProductModify />
@@ -48,4 +51,4 @@ const productRouter = () => {
   ];
 };
 
-export default productRouter;
+export default productsRouter;

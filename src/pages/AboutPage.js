@@ -10,7 +10,7 @@ const AboutPage = () => {
 
   return (
     <BasicLayout>
-      <div className="text-3xl">AboutPage</div>
+      <div className=" text-3xl">About Page</div>
     </BasicLayout>
   );
 };

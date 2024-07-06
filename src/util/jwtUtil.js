@@ -54,8 +54,7 @@ const beforeRes = async (res) => {
 
   //'ERROR_ACCESS_TOKEN'
   const data = res.data;
-  console.log('res===>', res);
-  console.log('data===>', data);
+
   if (data && data.error === 'ERROR_ACCESS_TOKEN') {
     const memberCookieValue = getCookie('member');
 

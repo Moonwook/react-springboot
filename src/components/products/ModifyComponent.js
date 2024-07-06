@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from "react";
-import { getOne, putOne, deleteOne } from "../../api/productsApi";
-import FetchingModal from "../common/FetchingModal";
-import { API_SERVER_HOST } from "../../api/todoApi";
-import useCustomMove from "../../hooks/useCustomMove";
-import ResultModal from "../common/ResultModal";
+import { useEffect, useRef, useState } from 'react';
+import { getOne, putOne, deleteOne } from '../../api/productsApi';
+import FetchingModal from '../common/FetchingModal';
+import { API_SERVER_HOST } from '../../api/todoApi';
+import useCustomMove from '../../hooks/useCustomMove';
+import ResultModal from '../common/ResultModal';
 
 const initState = {
   pno: 0,
-  pname: "",
-  pdesc: "",
+  pname: '',
+  pdesc: '',
   price: 0,
   delFlag: false,
   uploadFileNames: [],
@@ -43,7 +43,6 @@ const ModifyComponent = ({ pno }) => {
   };
 
   const deleteOldImages = (imageName) => {
-    // console.log("imageName: ", imageName);
     const resultFileNames = product.uploadFileNames.filter(
       (fileName) => fileName !== imageName
     );
@@ -55,59 +54,49 @@ const ModifyComponent = ({ pno }) => {
 
   const handleClickModify = () => {
     const files = uploadRef.current.files;
-    //console.log("files: ", files);
 
     const formData = new FormData();
 
     for (let i = 0; i < files.length; i++) {
-      formData.append("files", files[i]);
+      formData.append('files', files[i]);
     }
 
     //other data
-    formData.append("pname", product.pname);
-    formData.append("pdesc", product.pdesc);
-    formData.append("price", product.price);
-    formData.append("delFlag", product.delFlag);
+    formData.append('pname', product.pname);
+    formData.append('pdesc', product.pdesc);
+    formData.append('price', product.price);
+    formData.append('delFlag', product.delFlag);
 
     for (let i = 0; i < product.uploadFileNames.length; i++) {
-      formData.append("uploadFileNames", product.uploadFileNames[i]);
+      formData.append('uploadFileNames', product.uploadFileNames[i]);
     }
-
-    console.log("--------------formData.keys()----------------");
-    for (let key of formData.keys()) {
-      console.log(key, ":", formData.get(key));
-    }
-    console.log("------------------------------");
     //fetching
     setFetching(true);
 
     putOne(pno, formData).then((data) => {
       //수정 처리
-      setResult("Modified");
+      setResult('Modified');
       setFetching(false);
     });
-    // console.log("formData: ", formData);
   };
 
   const handleClickDelete = () => {
     setFetching(true);
     deleteOne(pno).then((data) => {
-      setResult("Deleted");
+      setResult('Deleted');
       setFetching(false);
     });
   };
 
   const closeModal = () => {
-    if (result === "Modified") {
+    if (result === 'Modified') {
       moveToRead(pno);
-    } else if (result === "Deleted") {
+    } else if (result === 'Deleted') {
       moveToList({ page: 1 });
     }
 
     setResult(null);
   };
-
-  console.log("product: ", product);
 
   return (
     <div className="border-2 border-sky-200 mt-10 m-2 p-4">
@@ -116,7 +105,7 @@ const ModifyComponent = ({ pno }) => {
       {result ? (
         <ResultModal
           title={`${result}`}
-          content={"정상적으로 처리되었습니다."} //결과 모달창
+          content={'정상적으로 처리되었습니다.'} //결과 모달창
           callbackFn={closeModal}
         />
       ) : (
@@ -129,7 +118,7 @@ const ModifyComponent = ({ pno }) => {
           <input
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
             name="pname"
-            type={"text"}
+            type={'text'}
             value={product.pname}
             onChange={handleChangeProduct}
           ></input>
@@ -155,7 +144,7 @@ const ModifyComponent = ({ pno }) => {
           <input
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
             name="price"
-            type={"number"}
+            type={'number'}
             value={product.price}
             onChange={handleChangeProduct}
           ></input>
@@ -183,7 +172,7 @@ const ModifyComponent = ({ pno }) => {
           <input
             ref={uploadRef}
             className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md"
-            type={"file"}
+            type={'file'}
             multiple={true}
           ></input>
         </div>
@@ -200,7 +189,7 @@ const ModifyComponent = ({ pno }) => {
                 >
                   DELETE
                 </button>
-                <img alt="img" src={`${host}/api/products/view/${imgFile}`} />
+                <img alt="img" src={`${host}/api/products/view/s_${imgFile}`} />
               </div>
             ))}
           </div>

@@ -1,19 +1,18 @@
-import { useEffect, useState } from "react";
-import { getOne } from "../../api/todoApi";
-import useCustomMove from "../../hooks/useCustomMove";
+import { useEffect, useState } from 'react';
+import { getOne } from '../../api/todoApi';
+import useCustomMove from '../../hooks/useCustomMove';
 
 const initState = {
   tno: 0,
-  title: "",
-  writer: "",
+  title: '',
+  writer: '',
   dueDate: null,
   complete: false,
 };
 
 const ReadComponent = ({ tno }) => {
-  const [todo, setTodo] = useState(initState);
+  const [todo, setTodo] = useState(initState); //아직 todo는 사용하지 않음
 
-  // 이동과 관련된 기능은 모두 useCustomMove()로 이동
   const { moveToList, moveToModify } = useCustomMove();
 
   useEffect(() => {
@@ -24,22 +23,26 @@ const ReadComponent = ({ tno }) => {
   }, [tno]);
 
   return (
-    <div className="border-2 border-sky-200 mt-10 m-2 p-4">
-      {makeDiv("Tno", todo.tno)}
-      {makeDiv("Writer", todo.writer)}
-      {makeDiv("Title", todo.title)}
-      {makeDiv("Due Date", todo.dueDate)}
-      {makeDiv("Complete", todo.complete ? "Complete" : "Not Yet")}
+    <div className="border-2 border-sky-200 mt-10 m-2 p-4 ">
+      {makeDiv('Tno', todo.tno)}
+      {makeDiv('Writer', todo.writer)}
+      {makeDiv('Title', todo.title)}
+      {makeDiv('Due Date', todo.dueDate)}
+      {makeDiv('Complete', todo.complete ? 'Completed' : 'Not Yet')}
 
+      {/* buttons.........start */}
       <div className="flex justify-end p-4">
         <button
+          type="button"
           className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
           onClick={() => moveToList()}
         >
           List
         </button>
+
         <button
-          className="rounded p-4 m-2 text-xl w-32 text-white bg-blue-500"
+          type="button"
+          className="rounded p-4 m-2 text-xl w-32 text-white bg-red-500"
           onClick={() => moveToModify(tno)}
         >
           Modify
